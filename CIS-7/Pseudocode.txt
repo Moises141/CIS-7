@@ -1,0 +1,108 @@
+// Pseudocode for Vigenere Cipher Program
+// Prototype only
+// may differ from actual source base
+
+#include necessary libraries
+
+// Function prototypes
+string getUserInput();
+string vigenereEncrypt(string message, string key);
+void saveHashedMessageToFile(string message);
+string hashMessage(string message);
+void displayMenu();
+int getChoice();
+
+int main() {
+    while (true) {
+        displayMenu(); // Show menu to the user
+        int choice = getChoice();
+
+        switch (choice) {
+            case 1: { // Encrypt a message
+                string message = getUserInput("Enter the message to encrypt: ");
+                string key = getUserInput("Enter the encryption key: ");
+                string encryptedMessage = vigenereEncrypt(message, key);
+                print "Encrypted Message: " + encryptedMessage;
+                break;
+            }
+            case 2: { // Save hashed encrypted message
+                string message = getUserInput("Enter the message to encrypt: ");
+                string key = getUserInput("Enter the encryption key: ");
+                string encryptedMessage = vigenereEncrypt(message, key);
+                string hashedMessage = hashMessage(encryptedMessage);
+                saveHashedMessageToFile(hashedMessage);
+                print "Hashed encrypted message saved to file.";
+                break;
+            }
+            case 3: { // Exit the program
+                print "Exiting program...";
+                return 0;
+            }
+            default: {
+                print "Invalid choice. Please try again.";
+                break;
+            }
+        }
+    }
+}
+
+// Function implementations
+
+// Display menu to the user
+void displayMenu() {
+    print "----- Vigenere Cipher Program -----";
+    print "1. Encrypt a message";
+    print "2. Save hashed encrypted message to file";
+    print "3. Exit";
+    print "-----------------------------------";
+    print "Enter your choice: ";
+}
+
+// Get the user's choice from the menu
+int getChoice() {
+    int choice;
+    input choice;
+    return choice;
+}
+
+// Prompt the user for input and return it
+string getUserInput(string prompt) {
+    print prompt;
+    string input;
+    input input;
+    return input;
+}
+
+// Encrypt the message using the Vigenere Cipher
+string vigenereEncrypt(string message, string key) {
+    string encryptedMessage = "";
+    for (int i = 0, j = 0; i < message.length(); i++) {
+        if (isAlphabetic(message[i])) {
+            char offset = isUpperCase(message[i]) ? 'A' : 'a';
+            encryptedMessage += (message[i] + (key[j % key.length()] - offset) - offset) % 26 + offset;
+            j++;
+        } else {
+            encryptedMessage += message[i]; // Preserve non-alphabetic characters
+        }
+    }
+    return encryptedMessage;
+}
+
+// Save the hashed version of the message to a text file
+void saveHashedMessageToFile(string message) {
+    string filename = "hashed_message.txt";
+    ofstream file(filename);
+    if (file.is_open()) {
+        file << message;
+        file.close();
+    } else {
+        print "Error: Unable to open file for writing.";
+    }
+}
+
+// Hash the message using a simple hashing algorithm (e.g., SHA-256 if available)
+string hashMessage(string message) {
+    // For simplicity, use a built-in hashing function or a placeholder
+    return hashLibraryFunction(message);
+}
+
